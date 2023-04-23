@@ -1,0 +1,66 @@
+
+<h1> Transactions for <%= user.username %> </h1>
+
+    <p> Here are your transactions! </p>
+
+      <table>
+        <td><a class="btn btn-lg btn-primary" 
+          href="/transaction/byCategory">group by category</a></td>
+        <td><a class="btn btn-lg btn-primary"
+          href="?sortBy=category">sort by category</a></td>
+        <td><a class="btn btn-lg btn-primary"
+          href="?sortBy=amount">sort by amount</a></td>
+        <td><a class="btn btn-lg btn-primary"
+          href="?sortBy=description">sort by description</a></td>
+        <td><a class="btn btn-lg btn-primary"
+          href="?sortBy=date">sort by date</a></td>
+      </table>
+    
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>description</th>
+            <th>amount</th>
+            <th>category</th>
+            <th>date</th>
+            <th>delete</th>
+            <th>edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% transactions.forEach(transaction => { %>
+            <tr>
+              <td><%= transaction.description %></td>
+              <td><%= transaction.amount %></td>
+              <td><%= transaction.category %></td>
+              <td><%= transaction.date.toDateString() %></td>
+              <td><a href="/transaction/delete/<%=transaction._id %>">
+                <i class="bi bi-trash"></i></a></td>
+              <td><a href="/transaction/edit/<%=transaction._id %>">
+                <i class="bi bi-pencil-square"></i></a></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <br>
+      
+      <h2>Add a New Transaction</h2>
+
+        <form method="post" action="/transaction">
+            <label for="description">description:</label>
+            <input type="text" name="description" id="description" required>
+            <br>
+            <label for="category">category:</label>
+            <input type="text" name="category" id="category" required>
+            <br>
+            <label for="amount">amount:</label>
+            <input type="number" name="amount" id="amount" required>
+            <br>
+            <label for="date">date:</label>
+            <input type="date" name="date" id="date" required>
+            <br>
+            <button type="submit">store</button>
+        </form>
+      </div>
+    
+
